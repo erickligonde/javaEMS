@@ -1,0 +1,107 @@
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Map;
+
+public class Home {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String name = "";
+        String id = "";
+        String department = "";
+        double salary = 0;
+        ArrayList<HashMap<String, String>> Employees = new ArrayList<>();
+        Boolean isRunning = false;
+        int number = 0;
+
+        System.out.println("Welcome to the Employee Management System.");
+
+        while (!isRunning){
+            System.out.println("What would you like to do? (Add, Delete, View)");
+            String choice = scanner.nextLine().toLowerCase();
+
+            switch (choice){
+                case "add":
+                    // Create a new LinkedHashMap for each new employee to avoid overwriting previous entries
+                    HashMap<String, String> Employee = new LinkedHashMap<>();
+
+                    System.out.println("What is the employee's name?");
+                    name = scanner.nextLine();
+                    System.out.println("What is the employee's ID number?");
+                    id = scanner.nextLine();
+                    System.out.println("What department does this employee work in?");
+                    department = scanner.nextLine();
+
+                    System.out.println("Is the employee Full-Time, Part-Time, or an Intern? (F, P, I)");
+                    String employeeType = scanner.nextLine().toLowerCase();
+
+                    switch (employeeType){
+                        case "f":
+                            Employee FullTime = new fullTime(name, id, department);
+                            salary = FullTime.calculateSalary();
+                            break;
+
+                        case "p":
+                            Employee PartTime = new partTime(name, id, department);
+                            salary = PartTime.calculateSalary();
+                            break;
+
+                        case "i":
+                            Employee Intern = new intern(name, id, department);
+                            salary = Intern.calculateSalary();
+                            break;
+                    }
+
+                    Employee.put("Name", name);
+                    Employee.put("ID", id);
+                    Employee.put("Department", department);
+                    String convertedSalary = Double.toString(salary);
+                    Employee.put("Salary", convertedSalary);
+
+                    // Add the new employee's data to the Employees list
+                    Employees.add(Employee);
+                    System.out.println("Employee added successfully.");
+                    break;
+
+                case "delete":
+                    System.out.println("Which Employee would you like to delete? ");
+                    number = scanner.nextInt() - 1;
+                    scanner.nextLine();  // Consume the newline character
+
+                    if (number >= 0 && number < Employees.size()) {
+                        Employees.remove(number);
+                        System.out.println("Employee deleted successfully.");
+                    } else {
+                        System.out.println("Invalid employee number.");
+                    }
+                    break;
+
+                case "view":
+                    System.out.println("Which employee would you like to view?");
+                    number = scanner.nextInt();
+                    scanner.nextLine();
+
+                   if (number >= 0 && number < Employees.size()){
+                       HashMap<String, String> employeeToView = Employees.get(number);
+                       System.out.println("Employee Details: ");
+                       for (Map.Entry<String, String> entry : employeeToView.entrySet()){
+                           System.out.println(entry.getKey()+ ": " + entry.getValue());
+                       }
+                   }
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.println("Would you like to do something else? (y/n)");
+            String keepRunning = scanner.nextLine().toLowerCase();
+            if (keepRunning.equals("n")) {
+                System.out.println("Goodbye!");
+                break;
+            }
+        }
+
+
+    }
+}
