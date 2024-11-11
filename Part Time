@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class partTime extends Employee{
+    public partTime(String name, String id, String department){
+        super(name, id, department);
+    }
+
+    double salary = 0;
+    @Override
+    double calculateSalary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your hourly wage?");
+        double wage = scanner.nextDouble();
+        System.out.println("How many hours do you work weekly?");
+        double hours = scanner.nextDouble();
+        return (wage * hours) * 2;
+    }
+}
