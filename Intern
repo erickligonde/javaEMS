@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class intern extends Employee{
+    public intern(String name, String id, String department){
+        super(name, id, department);
+
+    }
+    @Override
+    double calculateSalary() {
+
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Is your internship paid? (y/n)");
+        String paid = scanner.nextLine().toLowerCase();
+
+        if (paid.equals("y")){
+                System.out.println("What is your hourly wage?");
+                double wage = scanner.nextDouble();
+                System.out.println("How many hours do you work weekly?");
+                double hours = scanner.nextDouble();
+                return (wage * hours) * 2;
+        }
+        return 0;
+    }
+}
