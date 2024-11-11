@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class fullTime extends Employee{
+    public fullTime(String name, String id, String department){
+        super(name, id, department);
+    }
+
+    @Override
+    double calculateSalary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your annual salary?");
+        return scanner.nextDouble();
+    }
+}
